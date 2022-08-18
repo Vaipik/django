@@ -3,4 +3,9 @@ from django.forms import ModelForm
 from .models import *
 
 
-class BbForm(ModelFormenv)
+class PostForm(ModelForm):
+
+    class Meta:
+
+        model = Post
+        fields = ('title', 'content', 'author')

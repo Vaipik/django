@@ -1,5 +1,9 @@
 from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.views.generic.edit import CreateView
+
 from .models import *
+from .forms import *
 
 
 def index(request):
@@ -25,3 +29,9 @@ def topic(request, topic_id):
 
     return render(request, 'blog/by_publication.html', context)
 
+
+class PostCreateView(CreateView):
+
+    template_name = 'blog/new_publication.html'
+    form_class = PostForm
+    success_url = reverse_lazy('index')
