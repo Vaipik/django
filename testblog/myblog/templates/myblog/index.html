@@ -1,0 +1,19 @@
+{% extends 'myblog/base.html' %}
+
+{% block content %}
+<ul class="topics-list">
+  {% for topic in topics %}
+  <li>
+    <h3 class="topic-title">{{ topic.title }}</h3>
+    <p class="topic-content">{{ topic.content|linebreaks|truncatewords:60}}</p>
+    <div class="topic-ending">
+      <p class="topic-date">
+      {{ topic.time_updated|date:"d.m.Y H:i" }}
+      <span class="category">{{ topic.category }}</span>
+      <span class="topic-open"><a href="{{ topic.get_absolute_url }}">Read post</a></span></p>
+    </div>
+    <hr>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}

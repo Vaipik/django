@@ -1,0 +1,38 @@
+{% load static %}
+{% load myblog_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ title }}</title>
+  <link type="text/css" href="{% static 'myblog/css/styles.css' %}" rel="stylesheet" />
+</head>
+<body>
+<div class="header">
+  {% block mainmenu %}
+  {% menu as menu %}
+    <ul class="mainmenu">
+      {% for point in menu %}
+        {% if not forloop.last %}
+          <li><a href="{% url point.url_name %}">{{ point.title }}</a></li>
+        {% else %}
+          <li class="last"><a href="{% url point.url_name %}">{{ point.title }}</a></li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+{% endblock mainmenu %}
+</div>
+{% block sidebar %}
+
+  <div class="sidebar">
+    {% publication 'name' cat_selected %}
+{% endblock sidebar %}
+
+  </div>
+  <div class="main">
+  {% block content %}
+  {% endblock %}
+  </div>
+<div>SOME INFOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO{% get_categories 1 %}</div>
+</body>
+</html>

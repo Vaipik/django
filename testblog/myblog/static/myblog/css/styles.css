@@ -1,0 +1,104 @@
+body{
+    background-color: #DCDCDC;
+}
+
+.header{
+    background-color: #1e2939;
+    color: white;
+    font-style: normal;
+    font-weight: s;
+    font-size: 22px;
+    line-height: 50px;
+    margin-bottom: 20px;
+}
+
+.sidebar{
+    background: #111;
+    width: 160px;
+    height: 100%;
+    position: absolute;
+    z-index: 1;
+
+    overflow-x:hidden;
+    padding-top: 20px;
+}
+
+.sidebar a, .sidebar span{
+    padding: 6px 8px 6px 10px;
+    text-decoration: none;
+    font-size: 16px;
+    color: #818181;
+    display: table
+}
+
+.sidebar a:hover{
+    color: #f1f1f1
+}
+
+.main{
+    background: #F4ECCE;
+    margin-left: 160px;
+    padding: 0px 10px;
+    height: 100%
+
+}
+.topic-ending{
+    display: flex;
+}
+
+.topics-list{
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+.topic-title{
+    font-family: 'Purisa';
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+    color: #fb6d3a;
+}
+
+.topic-content{
+    font-family: 'Ubuntu'
+}
+
+.topic-date{
+    font-family: 'Arial';
+    font-weight: italic;
+    font-size: 14px;
+    text-align: left;
+    justify-content: space_between;
+}
+
+span.topic-open{
+    justify-content: space_between;
+}
+
+span.topic-open a{
+    padding: 10px;
+	min-width: 100px;
+	background: #333671;
+	color: #fff;
+	text-decoration: none;
+	justify-content: space_between;
+}
+
+ul.mainmenu { /* ul класса mainmenu */
+    font-size: 20px;
+    margin: 20px;  /* Отступ */
+}
+
+/* li класса ul mainmenu */
+ul.mainmenu li {
+    display: inline; /* отображать как строку */
+    margin-left: 20px/* Отступ слева */
+}
+
+ul.mainmenu li.last {float: right;}
+
+ul.mainmenu li a{
+    text-decoration: none;
+    color: white;
+}
