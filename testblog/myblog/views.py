@@ -1,7 +1,7 @@
 from django.http import HttpResponse, HttpResponseNotFound, Http404
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
-from .models import Topic, Category
+from .models import Topic
 
 
 def index(request):
@@ -25,16 +25,17 @@ def about(request):
     return render(request, 'myblog/about.html', context)
 
 
-def category(request, cat_id):
+def category(request, cat_slug):
 
-    topics = Topic.objects.filter(category_id=cat_id)
+    topics = Topic.objects.filter(category__slug=cat_slug)
 
     if len(topics) == 0:
         raise Http404()
 
     context = {
         'topics': topics,
-        'title': f"{topics[0].category.name} category",
+        'title': f'{topics[0].category.name} category',
+        'cat_selected': cat_slug,
     }
 
     return render(request, 'myblog/index.html', context)
@@ -48,8 +49,16 @@ def login(request):
     pass
 
 
-def publication(request, pub_id):
-    return HttpResponse(f"{pub_id}")
+def publication(request, pub_slug, cat_slug):
+
+    post = get_object_or_404(Topic, slug=pub_slug)
+    context = {
+        'post': post,
+        'title': post.title,
+        'cat_selected': post.category.slug,
+    }
+
+    return render(request, 'myblog/publication.html', context)
 
 
 def new_topic(request):

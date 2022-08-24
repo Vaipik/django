@@ -22,17 +22,16 @@
     </ul>
 {% endblock mainmenu %}
 </div>
-{% block sidebar %}
 
+{% block sidebar %}
   <div class="sidebar">
     {% publication 'name' cat_selected %}
 {% endblock sidebar %}
-
   </div>
-  <div class="main">
+<div class="main">
   {% block content %}
   {% endblock %}
-  </div>
-<div>SOME INFOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO{% get_categories 1 %}</div>
+</div>
+<div>SOME INFOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO</div>
 </body>
 </html>

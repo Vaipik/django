@@ -7,7 +7,7 @@ urlpatterns = [
     path('new_topic/', new_topic, name='new_topic'),
     path('feedback/', feedback, name='feedback'),
     path('login/', login, name='login'),
-    path('publication/<int:pub_id>', publication, name='publication'),
-    path('category/<int:cat_id>', category, name='category'),
+    path('category/<slug:cat_slug>', category, name='category'),
+    path('<slug:cat_slug>/<slug:pub_slug>', publication, name='publication'),
 ]
 

@@ -36,53 +36,64 @@ body{
 }
 
 .main{
+    height: 100%;
     background: #F4ECCE;
     margin-left: 160px;
-    padding: 0px 10px;
-    height: 100%
-
 }
-.topic-ending{
+
+.main div.topic{
     display: flex;
-}
-
-.topics-list{
-    list-style: none;
-    margin: 0px;
-    padding: 0px;
-}
-
-.topic-title{
-    font-family: 'Purisa';
-    font-weight: bold;
-    font-size: 16px;
-    line-height: 20px;
-    color: #fb6d3a;
+    flex-wrap: wrap;
+    margin-left: 20px;
+    align-items: center;
 }
 
 .topic-content{
-    font-family: 'Ubuntu'
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
 }
 
-.topic-date{
+.topic-content-photo{
+    padding: 10px;
+    width: 350px;
+    height: auto;
+}
+
+.topic-photo-main{
+    height: 100%;
+    width: 350px;;
+    flex: 1 1 auto;
+}
+
+.topic-content-text{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.topic-content-text-title h3{
+    font-family: 'Ubuntu';
+    color: #fb6d3a;
+}
+
+.topic-footer{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.topic-date span{
     font-family: 'Arial';
-    font-weight: italic;
     font-size: 14px;
-    text-align: left;
-    justify-content: space_between;
 }
-
-span.topic-open{
-    justify-content: space_between;
-}
-
-span.topic-open a{
+.topic-read-button a{
     padding: 10px;
 	min-width: 100px;
 	background: #333671;
 	color: #fff;
 	text-decoration: none;
-	justify-content: space_between;
 }
 
 ul.mainmenu { /* ul класса mainmenu */

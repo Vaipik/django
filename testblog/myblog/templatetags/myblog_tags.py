@@ -7,7 +7,6 @@ register = template.Library()
 
 @register.simple_tag()
 def get_categories(filter=None):
-
     return Category.objects.all() if filter is None else Category.objects.filter(pk=filter)
 
 
