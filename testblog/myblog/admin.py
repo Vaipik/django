@@ -9,7 +9,6 @@ class TopicAdmin(admin.ModelAdmin):
     search_fields = ('title', 'category', 'content')
     list_editable = ('is_published',)
     list_filter = ('is_published', 'time_created')
-    prepopulated_fields = {'slug': ('title',)}
 
 
 admin.site.register(Topic, TopicAdmin)

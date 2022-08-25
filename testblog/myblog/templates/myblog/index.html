@@ -7,10 +7,11 @@
 
     <div class="topic-content">
 
+      {% if topic.photo %}
       <div class="topic-content-photo">
         <img class="topic-photo-main" src="{{ topic.photo.url }}">
       </div>
-
+      {% endif %}
       <div class="topic-content-text">
 
         <div class="topic-content-text-title">

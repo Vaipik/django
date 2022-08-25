@@ -1,23 +1,20 @@
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import ListView, DetailView, CreateView
 
+from .forms import NewTopicForm
 from .models import Topic
 
 
-def index(request):
+class BlogHomePage(ListView):
 
-    topics = Topic.objects.all()
-
-    context = {
-        'topics': topics,
-        'title': 'Main page',
-    }
-
-    return render(request, 'myblog/index.html', context)
+    model = Topic
+    template_name = 'myblog/index.html'
+    context_object_name = 'topics'  # tag in templates and further access
+    extra_context = {'title': 'Main page'}  # Only for immutable data
 
 
 def about(request):
-
     context = {
         'title': 'About',
     }
@@ -25,20 +22,23 @@ def about(request):
     return render(request, 'myblog/about.html', context)
 
 
-def category(request, cat_slug):
+class TopicCategory(ListView):
 
-    topics = Topic.objects.filter(category__slug=cat_slug)
+    model = Topic
+    template_name = 'myblog/index.html'
+    context_object_name = 'topics'
+    allow_empty = False
 
-    if len(topics) == 0:
-        raise Http404()
+    def get_context_data(self, *, object_list=None, **kwargs):
 
-    context = {
-        'topics': topics,
-        'title': f'{topics[0].category.name} category',
-        'cat_selected': cat_slug,
-    }
+        context = super().get_context_data(**kwargs)
+        context['title'] = context.get('topics')[0].category.name + ' category'
+        context['cat_selected'] = context.get('topics')[0].category.slug
 
-    return render(request, 'myblog/index.html', context)
+        return context
+
+    def get_queryset(self)
+        return Topic.objects.filter(category__slug=self.kwargs['cat_slug'], is_published=True)
 
 
 def feedback(request):
@@ -49,20 +49,33 @@ def login(request):
     pass
 
 
-def publication(request, pub_slug, cat_slug):
+class ShowPublication(DetailView):
 
-    post = get_object_or_404(Topic, slug=pub_slug)
-    context = {
-        'post': post,
-        'title': post.title,
-        'cat_selected': post.category.slug,
-    }
+    model = Topic
+    template_name = 'myblog/publication.html'
+    slug_url_kwarg = 'pub_slug'
+    context_object_name = 'post'
 
-    return render(request, 'myblog/publication.html', context)
+    def get_context_data(self, *, object_list=None, **kwargs):
+
+        context = super().get_context_data(**kwargs)
+        context['title'] = context['post'].title
+        context['cat_selected'] = context['post'].category.slug
+        return context
 
 
-def new_topic(request):
-    pass
+class NewTopic(CreateView):
+
+    form_class = NewTopicForm
+    template_name = 'myblog/new_topic.html'
+    # success_url = reverse_lazy() if no get_absolute_url determined in Model
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'New publication'
+
+        return context
 
 
 def pageNotFound(request, exception):

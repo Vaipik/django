@@ -7,7 +7,7 @@ from testblog import settings
 
 urlpatterns = [
     path('', include('myblog.urls')),
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name='admin'),
 ]
 
 if settings.DEBUG:

@@ -1,10 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-</head>
-<body>
+{% extends 'myblog/base.html' %}
 
-</body>
-</html>
+{% block content %}
+
+<h1>{{ title }}</h1>
+
+<form action="{% url 'new_topic' %}" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+
+  <div>{{ form.non_field_errors }}</div>
+  {% for field in form %}
+
+  <p>
+    <label class="form-label" for="field.id_for_label">{{ field.label }}</label>
+    {{ field }}
+  </p>
+  <div>{{ field.errors }}</div>
+  {% endfor %}
+  <button type="submit">Publicate</button>
+</form>
+{% endblock %}
