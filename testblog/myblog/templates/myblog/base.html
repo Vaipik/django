@@ -11,15 +11,19 @@
 <div class="header">
   {% block mainmenu %}
     <ul class="mainmenu">
+      {% menu as menu %}
       {% for point in menu %}
-        {% if not forloop.last %}
           <li><a href="{% url point.url_name %}">{{ point.title }}</a></li>
-        {% else %}
-          <li class="last"><a href="{% url point.url_name %}">{{ point.title }}</a></li>
-        {% endif %}
       {% endfor %}
+
+      {% if request.user.is_authenticated %}
+        <li><a href="{% url 'new_topic' %}">New publication</a></li>
+        <li class="last"><a href="{% url 'logout' %}">{{ user.username }}, logout</a></li>
+      {% else %}
+        <li class="last"><a href="{% url 'login' %}">Log in</a></li>
+      {% endif %}
     </ul>
-{% endblock mainmenu %}
+  {% endblock mainmenu %}
 </div>
 
 {% block sidebar %}

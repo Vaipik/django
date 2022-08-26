@@ -1,10 +1,13 @@
+from django.contrib.auth import logout, login
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView
 from django.http import HttpResponseNotFound
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
 
-from .forms import NewTopicForm
+from .forms import NewTopicForm, RegisterUserForm, LoginUserForm
 from .models import Topic
 from .utils import *
 
@@ -55,10 +58,6 @@ def feedback(request):
     pass
 
 
-def login(request):
-    pass
-
-
 class ShowPublication(DataMixin, DetailView):
 
     model = Topic
@@ -90,5 +89,51 @@ class NewTopic(LoginRequiredMixin, DataMixin, CreateView):
         return context
 
 
+class RegisterUser(DataMixin, CreateView):
+
+    form_class = RegisterUserForm
+    template_name = 'myblog/register.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+
+        context = super().get_context_data(**kwargs)
+        context.update(self.get_user_context(title='Registration'))
+
+        return context
+
+    def form_valid(self, form):
+
+        user = form.save()
+        login(self.request, user)
+
+        return redirect('home')
+
+    def get_success_url(self):
+        return reverse_lazy('home')
+
+
+class LoginUser(DataMixin, LoginView):
+
+    form_class = LoginUserForm
+    template_name = 'myblog/login.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+
+        context = super().get_context_data(**kwargs)
+        context.update(self.get_user_context(title='Login page'))
+
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy('home')
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('home')
+
+
 def page_not_found(request, exception):
     return HttpResponseNotFound(f'<h1>Page does not exist</h1></p>{exception}</p>')
+
+

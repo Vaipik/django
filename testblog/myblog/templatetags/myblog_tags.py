@@ -20,3 +20,12 @@ def publication(sort=None, cat_selected=0):
         'cat_selected': cat_selected,
     }
 
+
+@register.simple_tag()
+def menu():
+    return [
+        {'title': "Home", 'url_name': 'home'},
+        {'title': "About", 'url_name': 'about'},
+        {'title': "Feedback", 'url_name': 'feedback'},
+    ]
+
