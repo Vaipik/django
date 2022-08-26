@@ -1,7 +1,9 @@
 {% for category in categories %}
-  {% if category.slug == cat_selected %}
-    <span>{{ category.name }}</span>
-  {% else %}
-    <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+  {% if category.topic__count > 0 %}
+    {% if category.slug == cat_selected %}
+      <span>{{ category.name }}</span>
+    {% else %}
+      <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+    {% endif %}
   {% endif %}
 {% endfor %}

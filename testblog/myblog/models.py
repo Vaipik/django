@@ -31,7 +31,7 @@ class Topic(models.Model):
 class Category(models.Model):
 
     name = models.CharField(max_length=100, db_index=True, verbose_name='Category')
-    slug = models.SlugField(max_length=100, unique=True, db_index=True, verbose_name='URL')
+    slug = AutoSlugField(max_length=100, populate_from='name', unique=True, db_index=True, verbose_name='URL')
 
     class Meta:
 
